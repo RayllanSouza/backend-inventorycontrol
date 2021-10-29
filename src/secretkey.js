@@ -1,0 +1,2 @@
+const secretKey = '92672f0fa1c80e48faa437614e2e22c07c2b14bf15b57819cf2490fe5e27e45c';
+export default secretKey;
