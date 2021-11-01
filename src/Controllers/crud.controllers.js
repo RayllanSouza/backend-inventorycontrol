@@ -43,7 +43,7 @@ function removeItem(req, res) {
                             Acao: `Removeu ${qtde} de ${nomeItem}`,
                             Agente: user
                         }
-                        connection.query(`INSERT INTO logs SET ?`, log ,function (error, result){
+                        connection.query(`INSERT INTO logs_removed SET ?`, log ,function (error, result){
                             return res.status(200).json({
                                 "Status": "Item Removido"
                             })
@@ -61,7 +61,7 @@ function removeItem(req, res) {
                             Acao: `Removeu ${qtde} de ${nomeItem}`,
                             Agente: user
                         }
-                        connection.query(`INSERT INTO logs SET ?`, log ,function (error, result){
+                        connection.query(`INSERT INTO logs_removed SET ?`, log ,function (error, result){
                             return res.status(200).json({
                                 "Status": "Qtde Atualizada!",
                                 "newQtde": qtdeRemove
@@ -85,8 +85,14 @@ function addItem(req, res){
                         "Error": "Não foi possivel adicionar item!"
                     })
                 }else{
-                    return res.status(200).json({
-                        "Status": "Item Adicionado!"
+                    const log = {
+                        Acao: `Adicionou ${qtde} de ${item.nome}`,
+                        Agente: item.user
+                    }
+                    connection.query(`INSERT INTO logs_added SET ?`, log ,function (error, result){
+                        return res.status(200).json({
+                            "Status": "Adicionado"
+                        })
                     })
                 }
             })    
@@ -99,8 +105,14 @@ function addItem(req, res){
                         "Error": "Não foi possivel atualizar item"
                     })
                 }else{
-                    return res.status(200).json({
-                        "Status": "Item Atualizado"
+                    const log = {
+                        Acao: `Adicionou ${req.body.qtde} de ${item.nome}`,
+                        Agente: item.user
+                    }
+                    connection.query(`INSERT INTO logs_added SET ?`, log ,function (error, result){
+                        return res.status(200).json({
+                            "Status": "Atualizado"
+                        })
                     })
                 }
             })
