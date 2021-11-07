@@ -1,10 +1,13 @@
 import { Router } from "express";
+import createDB from "../Controllers/CreateDatabase.js";
 import {showItems, removeItem, addItem} from "../Controllers/crud.controllers.js";
 import { newUser, userLogin, verifyToken } from "../Controllers/user.controllers.js";
 
 
 const routes = Router();
 
+
+createDB();
 
 //Rotas Inventario
 routes.get('/show', verifyToken, showItems);

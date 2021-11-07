@@ -20,7 +20,6 @@ function verifyToken(req, res, next){
     }
 }
 
-
 function userLogin(req, res){
     const {login, senha} = req.body;
     try {

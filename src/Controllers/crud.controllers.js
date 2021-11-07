@@ -5,7 +5,6 @@ var connection = mysql.createConnection({
     password: '',
     database: 'ControleDeEstoque'
 })
-
 connection.connect();
 
 function showItems(req, res) {
@@ -109,7 +108,13 @@ function addItem(req, res){
                         Acao: `Adicionou ${req.body.qtde} de ${item.nome}`,
                         Agente: item.user
                     }
-                    connection.query(`INSERT INTO logs_added SET ?`, log ,function (error, result){
+                    connection.query(`INSERT INTO logs_added SET ?`,log ,function (error, result){
+                        if(error){
+                            return res.status(500).json({
+                                "Status": "Fail",
+                                "Error": error 
+                            })
+                        }
                         return res.status(200).json({
                             "Status": "Atualizado"
                         })
